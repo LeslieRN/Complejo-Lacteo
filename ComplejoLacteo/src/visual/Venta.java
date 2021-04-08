@@ -23,6 +23,17 @@ import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
@@ -33,6 +44,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.UIManager;
 import java.awt.Color;
+import java.awt.Event;
 
 public class Venta extends JDialog {
 
@@ -305,6 +317,9 @@ public class Venta extends JDialog {
 						auxFact.setQueso(quesosFactura());
 						Principal.getInstance().insertarFactura(auxFact);
 						JOptionPane.showMessageDialog(null,"Factura registrada","Mensaje", JOptionPane.INFORMATION_MESSAGE);
+						if(guardarFactura(txtCodigoFactura.getText(), auxFact)) {
+							JOptionPane.showMessageDialog(null,"Factura guardada","Mensaje", JOptionPane.INFORMATION_MESSAGE);
+						}
 						clean();
 						
 					}
@@ -365,5 +380,27 @@ public class Venta extends JDialog {
 		txtCodigoFactura.setText("FACT-"+Factura.getCantidad());
 		model_Factura.removeAllElements();
 		listaFactura.setModel(model_Factura);
+	}
+	
+	private boolean guardarFactura(String nombreFactura, Factura factura) {
+		String path = System.getProperty("user.dir");
+		FileOutputStream archivoFactura;
+		ObjectOutputStream objectoFactura;
+		System.out.print("Nombre de la factura: "+ nombreFactura + "\n");
+		System.out.print("Path: "+ path + "\n");
+		try {
+			archivoFactura = new FileOutputStream (path+"\\facturas\\"+nombreFactura+".dat");
+			objectoFactura = new ObjectOutputStream (archivoFactura);
+			objectoFactura.writeInt(1);
+			objectoFactura.writeObject(factura);
+			objectoFactura.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return false;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 }
