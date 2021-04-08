@@ -1,6 +1,10 @@
 package logico;
 
-public class Cilindro extends Queso {
+import java.io.Serializable;
+
+public class Cilindro extends Queso implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	private float radio;
 	private float longitud;
 	public Cilindro(float precioBase, float precioUnitario, String codigo,float radio, float longitud) {
