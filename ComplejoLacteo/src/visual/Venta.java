@@ -33,6 +33,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -317,11 +318,12 @@ public class Venta extends JDialog {
 
 						auxFact.setQueso(quesosFactura());
 						Principal.getInstance().insertarFactura(auxFact);
-						Principal.setNombreFactura(txtCodigoFactura.getText());
-						facturaServidor (auxFact);
+						//Principal.setNombreFactura(txtCodigoFactura.getText());
+						//System.out.println("Este es el nombre de la factura " +Principal.getNombreFactura());
 						JOptionPane.showMessageDialog(null,"Factura registrada","Mensaje", JOptionPane.INFORMATION_MESSAGE);
 						if(guardarFactura(txtCodigoFactura.getText(), auxFact)) {
 							JOptionPane.showMessageDialog(null,"Factura guardada","Mensaje", JOptionPane.INFORMATION_MESSAGE);
+							facturaServidor(auxFact, txtCodigoFactura.getText());
 						}
 						clean();
 
@@ -406,38 +408,21 @@ public class Venta extends JDialog {
 		}
 		return true;
 	}
-	
-	
-	private void facturaServidor (Factura auxFact) {
+
+
+	private void facturaServidor (Factura auxFact, String nombreFact) {
 		Socket socket = null;
 		String host = "127.0.0.1";
-		String path = System.getProperty("user.dir");
-		FileOutputStream file;
 		byte[] bytes = new byte[16 * 1024];
 		FileInputStream in;
-		
+		String path = System.getProperty("user.dir");
+
 		try {
 			socket = new Socket(host, 7000);
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-		try {
-			file = new FileOutputStream (path+"\\facturas\\"+txtCodigoFactura.getText()+".dat");
-			ObjectOutputStream oos = new ObjectOutputStream (file);
-			oos.writeInt(1);
-			oos.writeObject(auxFact);
-			oos.close();
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		try {
-			in = new FileInputStream(txtCodigoFactura.getText()+".dat");
+			/*PrintWriter nombreProyecto = new PrintWriter(socket.getOutputStream());
+			nombreProyecto.println(nombreFact);
+			nombreProyecto.flush();*/
+			in = new FileInputStream(path+"\\facturas\\"+nombreFact+".dat");
 			OutputStream out = socket.getOutputStream();
 			int count;
 			while ((count = in.read(bytes)) > 0) {
@@ -447,7 +432,7 @@ public class Venta extends JDialog {
 			out.close();
 			in.close();
 			socket.close();
-		} catch (FileNotFoundException e1) {
+		}  catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (IOException e1) {
