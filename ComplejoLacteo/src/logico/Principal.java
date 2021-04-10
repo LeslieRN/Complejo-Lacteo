@@ -7,7 +7,6 @@ public class Principal {
 	private ArrayList<Cliente> clientes;
 	private ArrayList<Queso> quesos;
 	private static Principal principal = null;
-	private static String nombreFactura = "";
 
 	public Principal() {
 		super();
@@ -205,12 +204,6 @@ public class Principal {
 			}
 		}*/
 		return precio;
-	}
-	public static String getNombreFactura() {
-		return nombreFactura;
-	}
-	public static void setNombreFactura(String nombreFactura) {
-		Principal.nombreFactura = nombreFactura;
 	}
 
 }
