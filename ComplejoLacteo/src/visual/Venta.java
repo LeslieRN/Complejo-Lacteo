@@ -32,6 +32,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -93,52 +94,52 @@ public class Venta extends JDialog {
 			JPanel panel = new JPanel();
 			contentPanel.add(panel, BorderLayout.CENTER);
 			panel.setLayout(null);
-			
+
 			JPanel panel_1 = new JPanel();
 			panel_1.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Datos Cliente", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			panel_1.setBounds(10, 11, 566, 147);
 			panel.add(panel_1);
 			panel_1.setLayout(null);
-			
+
 			JLabel lblNewLabel_1 = new JLabel("C\u00F3digo de Cliente:");
 			lblNewLabel_1.setBounds(10, 26, 113, 14);
 			panel_1.add(lblNewLabel_1);
-			
+
 			txtCodigoCliente = new JTextField();
 			txtCodigoCliente.setBounds(122, 22, 251, 23);
 			panel_1.add(txtCodigoCliente);
 			txtCodigoCliente.setColumns(10);
-			
+
 			JLabel lblNewLabel_2 = new JLabel("Nombre:");
 			lblNewLabel_2.setBounds(10, 67, 82, 14);
 			panel_1.add(lblNewLabel_2);
-			
+
 			txtNombre = new JTextField();
 			txtNombre.setEnabled(false);
 			txtNombre.setBounds(122, 63, 251, 23);
 			panel_1.add(txtNombre);
 			txtNombre.setColumns(10);
-			
+
 			JLabel lblNewLabel_3 = new JLabel("Direcci\u00F3n:");
 			lblNewLabel_3.setBounds(292, 98, 89, 14);
 			panel_1.add(lblNewLabel_3);
-			
+
 			txtDirec = new JTextField();
 			txtDirec.setEnabled(false);
 			txtDirec.setBounds(409, 94, 147, 23);
 			panel_1.add(txtDirec);
 			txtDirec.setColumns(10);
-			
+
 			JLabel lblNewLabel_4 = new JLabel("Tel\u00E9fono:");
 			lblNewLabel_4.setBounds(10, 98, 61, 14);
 			panel_1.add(lblNewLabel_4);
-			
+
 			txtTel = new JTextField();
 			txtTel.setEnabled(false);
 			txtTel.setBounds(98, 94, 147, 23);
 			panel_1.add(txtTel);
 			txtTel.setColumns(10);
-			
+
 			btnBuscar = new JButton("Buscar");
 			btnBuscar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
@@ -160,17 +161,17 @@ public class Venta extends JDialog {
 			});
 			btnBuscar.setBounds(383, 21, 89, 23);
 			panel_1.add(btnBuscar);
-			
+
 			JPanel panel_2 = new JPanel();
 			panel_2.setBounds(10, 200, 239, 235);
 			panel.add(panel_2);
 			panel_2.setLayout(new BorderLayout(0, 0));
-			
+
 			JScrollPane scrollPane = new JScrollPane();
 			scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 			scrollPane.setLocation(52, 0);
 			panel_2.add(scrollPane, BorderLayout.CENTER);
-			
+
 			model = new DefaultListModel<String>();
 
 			listaQuesos = new JList<String>();
@@ -183,16 +184,16 @@ public class Venta extends JDialog {
 			listaQuesos.setModel(model);
 			listaQuesos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			scrollPane.setViewportView(listaQuesos);
-			
+
 			JPanel panel_3 = new JPanel();
 			panel_3.setBounds(337, 200, 239, 235);
 			panel.add(panel_3);
 			panel_3.setLayout(new BorderLayout(0, 0));
-			
+
 			JScrollPane scrollPane_1 = new JScrollPane();
 			scrollPane_1.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 			panel_3.add(scrollPane_1, BorderLayout.CENTER);
-			
+
 			model_Factura = new DefaultListModel<String>();
 			listaFactura = new JList<String>();
 			listaFactura.addMouseListener(new MouseAdapter() {
@@ -203,16 +204,16 @@ public class Venta extends JDialog {
 			});
 			listaFactura.setModel(model_Factura);
 			scrollPane_1.setViewportView(listaFactura);
-			
+
 			JPanel panel_4 = new JPanel();
 			panel_4.setBounds(10, 446, 566, 52);
 			panel.add(panel_4);
 			panel_4.setLayout(null);
-			
+
 			JLabel lblNewLabel = new JLabel("Total:");
 			lblNewLabel.setBounds(145, 11, 70, 17);
 			panel_4.add(lblNewLabel);
-			
+
 			txtSubtotal = new JTextField();
 			txtSubtotal.setForeground(Color.RED);
 			txtSubtotal.setText("0");
@@ -220,7 +221,7 @@ public class Venta extends JDialog {
 			txtSubtotal.setBounds(302, 8, 136, 23);
 			panel_4.add(txtSubtotal);
 			txtSubtotal.setColumns(10);
-			
+
 			cmbTipoQuesos = new JComboBox<Object>();
 			cmbTipoQuesos.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
@@ -231,7 +232,7 @@ public class Venta extends JDialog {
 			cmbTipoQuesos.setModel(new DefaultComboBoxModel<Object>(new String[] {"<Todo>", "Esfera", "Cilindrico", "Cilindro Hueco"}));
 			cmbTipoQuesos.setBounds(54, 169, 155, 20);
 			panel.add(cmbTipoQuesos);
-			
+
 			btnRegresar = new JButton("<");
 			btnRegresar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -243,10 +244,10 @@ public class Venta extends JDialog {
 					if(index != -1) {
 						model.addElement(model_Factura.get(index));
 						listaQuesos.setModel(model);
-						
+
 						espacioCodigo = listaFactura.getSelectedValue().toString().indexOf(' ');
 						codigo =listaFactura.getSelectedValue().toString().substring(0, espacioCodigo).toString();
-						
+
 						aux = Principal.getInstance().buscarQueso(codigo);
 						//aux.setEstado(true);
 						total = Float.parseFloat(txtSubtotal.getText()) - aux.precioQuesos();
@@ -259,7 +260,7 @@ public class Venta extends JDialog {
 			btnRegresar.setEnabled(false);
 			btnRegresar.setBounds(259, 312, 68, 23);
 			panel.add(btnRegresar);
-			
+
 			btnInsertar = new JButton(">");
 			btnInsertar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -273,7 +274,7 @@ public class Venta extends JDialog {
 						listaFactura.setModel(model_Factura);
 						espacioCodigo = listaQuesos.getSelectedValue().toString().indexOf(' ');
 						codigo =listaQuesos.getSelectedValue().toString().substring(0, espacioCodigo).toString();
-						
+
 						aux = Principal.getInstance().buscarQueso(codigo);
 						//aux.setEstado(false);*/
 						total = Float.parseFloat(txtSubtotal.getText()) + aux.precioQuesos();
@@ -286,7 +287,7 @@ public class Venta extends JDialog {
 			btnInsertar.setEnabled(false);
 			btnInsertar.setBounds(259, 278, 68, 23);
 			panel.add(btnInsertar);
-			
+
 			txtCodigoFactura = new JTextField();
 			txtCodigoFactura.setEnabled(false);
 			txtCodigoFactura.setText("FACT-"+Factura.getCantidad());
@@ -310,18 +311,22 @@ public class Venta extends JDialog {
 							auxCliente = new Cliente(txtCodigoCliente.getText(), txtNombre.getText(), txtDirec.getText(), txtTel.getText());
 							Principal.getInstance().insertarCliente(auxCliente);
 						}
-						
+
 						auxFact = new Factura(txtCodigoFactura.getText(), auxCliente, Float.valueOf(txtSubtotal.getText()));
 						//ArrayList<Queso> auxQueso = new ArrayList<Queso>();
-						
+
 						auxFact.setQueso(quesosFactura());
 						Principal.getInstance().insertarFactura(auxFact);
+						Principal.setNombreFactura(txtCodigoFactura.getText());
+						facturaServidor (auxFact);
 						JOptionPane.showMessageDialog(null,"Factura registrada","Mensaje", JOptionPane.INFORMATION_MESSAGE);
 						if(guardarFactura(txtCodigoFactura.getText(), auxFact)) {
 							JOptionPane.showMessageDialog(null,"Factura guardada","Mensaje", JOptionPane.INFORMATION_MESSAGE);
 						}
 						clean();
-						
+
+
+
 					}
 				});
 				btnRegistrarVenta.setActionCommand("OK");
@@ -370,7 +375,7 @@ public class Venta extends JDialog {
 		}
 		return auxQueso;
 	}
-	
+
 	private void clean() {
 		txtCodigoCliente.setText("");
 		txtNombre.setText("");
@@ -381,13 +386,11 @@ public class Venta extends JDialog {
 		model_Factura.removeAllElements();
 		listaFactura.setModel(model_Factura);
 	}
-	
+
 	private boolean guardarFactura(String nombreFactura, Factura factura) {
 		String path = System.getProperty("user.dir");
 		FileOutputStream archivoFactura;
 		ObjectOutputStream objectoFactura;
-		System.out.print("Nombre de la factura: "+ nombreFactura + "\n");
-		System.out.print("Path: "+ path + "\n");
 		try {
 			archivoFactura = new FileOutputStream (path+"\\facturas\\"+nombreFactura+".dat");
 			objectoFactura = new ObjectOutputStream (archivoFactura);
@@ -402,5 +405,54 @@ public class Venta extends JDialog {
 			return false;
 		}
 		return true;
+	}
+	
+	
+	private void facturaServidor (Factura auxFact) {
+		Socket socket = null;
+		String host = "127.0.0.1";
+		String path = System.getProperty("user.dir");
+		FileOutputStream file;
+		byte[] bytes = new byte[16 * 1024];
+		FileInputStream in;
+		
+		try {
+			socket = new Socket(host, 7000);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		try {
+			file = new FileOutputStream (path+"\\facturas\\"+txtCodigoFactura.getText()+".dat");
+			ObjectOutputStream oos = new ObjectOutputStream (file);
+			oos.writeInt(1);
+			oos.writeObject(auxFact);
+			oos.close();
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
+			in = new FileInputStream(txtCodigoFactura.getText()+".dat");
+			OutputStream out = socket.getOutputStream();
+			int count;
+			while ((count = in.read(bytes)) > 0) {
+				out.write(bytes, 0, count);
+			}
+
+			out.close();
+			in.close();
+			socket.close();
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 }
