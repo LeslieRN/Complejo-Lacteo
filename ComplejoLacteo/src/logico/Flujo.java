@@ -1,6 +1,7 @@
 package logico;
 
 import java.net.*;
+import java.text.SimpleDateFormat;
 import java.io.*;
 import java.util.*;
 
@@ -11,7 +12,8 @@ public class Flujo extends Thread
 	DataOutputStream FlujoEscritura;
 	InputStream in = null;
 	OutputStream out = null;
-
+	SimpleDateFormat formatDate= new SimpleDateFormat("dd-M-yyyy-hh-mm-ss");
+	String date;// = formatDate.format(new Date());
 	public Flujo (Socket sfd)
 	{
 		nsfd = sfd;
@@ -26,17 +28,17 @@ public class Flujo extends Thread
 		}
 	}
 
-	public void run() {
+	public void run()
+	{
 		String path = System.getProperty("user.dir");
-
 		try {
 			in = nsfd.getInputStream();
 		} catch (IOException ex) {
 			System.out.println("Can't get socket input stream. ");
 		}
-
 		try {
-			out = new FileOutputStream(path+"\\Respaldo\\"+ Principal.getNombreFactura() +".dat");
+			date = formatDate.format(new Date());
+			out = new FileOutputStream(path+"\\Respaldo\\factura."+date+".dat");
 		} catch (FileNotFoundException ex) {
 			System.out.println("File not found. ");
 		}
@@ -61,6 +63,5 @@ public class Flujo extends Thread
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
 }
