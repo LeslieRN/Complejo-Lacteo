@@ -24,7 +24,7 @@ public class Servidor extends Thread
       try
       {
         Socket nsfd = sfd.accept();
-        System.out.println("Conexion aceptada\n");
+        System.out.println("Conexion aceptada de: "+nsfd.getInetAddress());
 	    Flujo flujo = new Flujo(nsfd);
 	    Thread t = new Thread(flujo);
         t.start();
@@ -36,4 +36,3 @@ public class Servidor extends Thread
     }
   }
 }
-
