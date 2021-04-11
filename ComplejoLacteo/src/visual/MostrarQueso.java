@@ -1,6 +1,7 @@
 package visual;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
@@ -25,6 +26,7 @@ import javax.swing.JLabel;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
 
 public class MostrarQueso extends JDialog {
 
@@ -63,7 +65,7 @@ public class MostrarQueso extends JDialog {
 			panel.setLayout(null);
 			{
 				JPanel panel_1 = new JPanel();
-				panel_1.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Men\u00FA Selecci\u00F3n:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+				panel_1.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(51, 102, 153), new Color(51, 102, 153)), "Menu de Seleccion:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 				panel_1.setBounds(0, 0, 493, 57);
 				panel.add(panel_1);
 				panel_1.setLayout(null);
@@ -83,7 +85,7 @@ public class MostrarQueso extends JDialog {
 						}
 					});
 					cmbOpcion.setModel(new DefaultComboBoxModel(new String[] {"<Todo>", "Queso Esferico", "Queso Cilindrico", "Queso Cilindrico Hueco"}));
-					cmbOpcion.setBounds(80, 26, 160, 20);
+					cmbOpcion.setBounds(10, 26, 160, 20);
 					panel_1.add(cmbOpcion);
 				}
 			}
@@ -111,9 +113,11 @@ public class MostrarQueso extends JDialog {
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			buttonPane.setBackground(new Color(51, 102, 153));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton cancelButton = new JButton("Cancel");
+				JButton cancelButton = new JButton("");
+				cancelButton.setIcon(new ImageIcon(MostrarQueso.class.getResource("/icons/home (2).png")));
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();

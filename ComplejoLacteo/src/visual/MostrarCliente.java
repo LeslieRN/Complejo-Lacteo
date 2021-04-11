@@ -54,7 +54,6 @@ public class MostrarCliente extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new BorderLayout(0, 0));
 		{
-		//	panel.setBorder(new TitledBorder(null, "Mostrar Clientes", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			panel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(51, 102, 153), new Color(51, 102, 153)), "Mostrar Clientes", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			
 			contentPanel.add(panel, BorderLayout.CENTER);
