@@ -34,6 +34,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.net.ConnectException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -283,25 +284,25 @@ public class Venta extends JDialog {
 			txtCodigoFactura.setBounds(337, 169, 239, 23);
 			panel.add(txtCodigoFactura);
 			txtCodigoFactura.setColumns(10);
-			
-						txtSubtotal = new JTextField();
-						txtSubtotal.setFont(new Font("Tahoma", Font.PLAIN, 14));
-						txtSubtotal.setBounds(392, 450, 136, 38);
-						panel.add(txtSubtotal);
-						txtSubtotal.setForeground(Color.RED);
-						txtSubtotal.setText("0.00");
-						txtSubtotal.setEnabled(false);
-						txtSubtotal.setColumns(10);
-						
-						JLabel lblNewLabel = new JLabel("Total:");
-						lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-						lblNewLabel.setBounds(337, 461, 60, 14);
-						panel.add(lblNewLabel);
-						
-						JLabel lblNewLabel_5 = new JLabel("$RD");
-						lblNewLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 14));
-						lblNewLabel_5.setBounds(530, 455, 46, 27);
-						panel.add(lblNewLabel_5);
+
+			txtSubtotal = new JTextField();
+			txtSubtotal.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			txtSubtotal.setBounds(392, 450, 136, 38);
+			panel.add(txtSubtotal);
+			txtSubtotal.setForeground(Color.RED);
+			txtSubtotal.setText("0.00");
+			txtSubtotal.setEnabled(false);
+			txtSubtotal.setColumns(10);
+
+			JLabel lblNewLabel = new JLabel("Total:");
+			lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			lblNewLabel.setBounds(337, 461, 60, 14);
+			panel.add(lblNewLabel);
+
+			JLabel lblNewLabel_5 = new JLabel("$RD");
+			lblNewLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			lblNewLabel_5.setBounds(530, 455, 46, 27);
+			panel.add(lblNewLabel_5);
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -316,24 +317,37 @@ public class Venta extends JDialog {
 						Cliente auxCliente = null;
 						String codigo = txtCodigoCliente.getText();
 						auxCliente = Principal.getInstance().buscarCliente(codigo);
-						if(auxCliente == null) {
-							auxCliente = new Cliente(txtCodigoCliente.getText(), txtNombre.getText(), txtDirec.getText(), txtTel.getText());
-							Principal.getInstance().insertarCliente(auxCliente);
+						
+						try {
+							if(auxCliente == null) {
+								auxCliente = new Cliente(txtCodigoCliente.getText(), txtNombre.getText(), txtDirec.getText(), txtTel.getText());
+								Principal.getInstance().insertarCliente(auxCliente);
+							}
+						} catch (Exception e1) {
+							JOptionPane.showMessageDialog(null,"Ocurrio un Error al insertar Cliente","Mensaje", JOptionPane.ERROR_MESSAGE);
 						}
-
-						auxFact = new Factura(txtCodigoFactura.getText(), auxCliente, Float.valueOf(txtSubtotal.getText()));
-
-						auxFact.setQueso(quesosFactura());
-						Principal.getInstance().insertarFactura(auxFact);
-						JOptionPane.showMessageDialog(null,"Factura registrada","Mensaje", JOptionPane.INFORMATION_MESSAGE);
+						
+						try {
+							auxFact = new Factura(txtCodigoFactura.getText(), auxCliente, Float.valueOf(txtSubtotal.getText()));
+							auxFact.setQueso(quesosFactura());
+							Principal.getInstance().insertarFactura(auxFact);
+							JOptionPane.showMessageDialog(null,"Factura registrada","Mensaje", JOptionPane.INFORMATION_MESSAGE);
+						} catch (Exception e2) {
+							JOptionPane.showMessageDialog(null,"Ocurrio un Error al insertar Factura","Mensaje", JOptionPane.ERROR_MESSAGE);
+						}
+						
 						if(guardarFactura(txtCodigoFactura.getText(), auxFact)) {
 							JOptionPane.showMessageDialog(null,"Factura guardada","Mensaje", JOptionPane.INFORMATION_MESSAGE);
-							facturaServidor(auxFact, txtCodigoFactura.getText());
+							try {
+								facturaServidor(auxFact, txtCodigoFactura.getText());
+							} catch (ConnectException e1) {
+								// TODO Auto-generated catch block
+								JOptionPane.showMessageDialog(null,"Factura no guardada, revise la conexion del servidor","Mensaje", JOptionPane.ERROR_MESSAGE);
+								e1.printStackTrace();
+
+							}
 						}
 						clean();
-
-
-
 					}
 				});
 				btnRegistrarVenta.setActionCommand("OK");
@@ -419,7 +433,7 @@ public class Venta extends JDialog {
 	}
 
 
-	private void facturaServidor (Factura auxFact, String nombreFact) {
+	private void facturaServidor (Factura auxFact, String nombreFact) throws ConnectException{
 		Socket socket = null;
 		String host = "127.0.0.1";
 		byte[] bytes = new byte[16 * 1024];
@@ -428,9 +442,6 @@ public class Venta extends JDialog {
 
 		try {
 			socket = new Socket(host, 7000);
-			/*PrintWriter nombreProyecto = new PrintWriter(socket.getOutputStream());
-			nombreProyecto.println(nombreFact);
-			nombreProyecto.flush();*/
 			in = new FileInputStream(path+"\\facturas\\"+nombreFact+".dat");
 			OutputStream out = socket.getOutputStream();
 			int count;
@@ -442,7 +453,11 @@ public class Venta extends JDialog {
 			in.close();
 			socket.close();
 		}  catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			JOptionPane.showMessageDialog(null,"Archivo no encontrado","Mensaje", JOptionPane.ERROR_MESSAGE);
+		} catch(ConnectException e1) 
+		{
+			JOptionPane.showMessageDialog(null,"Factura no guardada, revise la conexion del servidor","Mensaje", JOptionPane.ERROR_MESSAGE);
 			e1.printStackTrace();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
