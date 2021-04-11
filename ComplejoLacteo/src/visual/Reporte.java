@@ -1,5 +1,6 @@
 package visual;
 
+import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
@@ -9,6 +10,14 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Window.Type;
 import javax.swing.border.TitledBorder;
+
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PiePlot;
+import org.jfree.chart.renderer.category.LineAndShapeRenderer;
+import org.jfree.data.general.DefaultPieDataset;
 
 import logico.Factura;
 import logico.Principal;
@@ -45,14 +54,14 @@ public class Reporte extends JDialog {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}*/
-
+	}
+	 */
 	/**
 	 * Create the dialog.
 	 */
 	public Reporte() {
 		setTitle("Reportes");
-		setBounds(100, 100, 720, 374);
+		setBounds(100, 100, 819, 428);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -61,7 +70,7 @@ public class Reporte extends JDialog {
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(51, 102, 153), new Color(51, 102, 153)), "Ventas Totales", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(22, 14, 319, 129);
+		panel.setBounds(22, 28, 319, 129);
 		contentPanel.add(panel);
 		panel.setLayout(null);
 		
@@ -89,46 +98,62 @@ public class Reporte extends JDialog {
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(51, 102, 153), new Color(51, 102, 153)), "Informacion General", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_1.setBounds(363, 11, 319, 129);
+		panel_1.setBounds(363, 11, 430, 302);
 		contentPanel.add(panel_1);
-		panel_1.setLayout(null);
+		panel_1.setLayout(new BorderLayout(0, 0));
 		
-		JLabel lblNewLabel_1 = new JLabel("Queso Esf\u00E9rico:");
-		lblNewLabel_1.setBounds(10, 21, 100, 14);
+		// Fuente de Datos
+        DefaultPieDataset data = new DefaultPieDataset();
+        data.setValue("Queso Esférico", Principal.getInstance().cantidadQuesos()[0]);
+        data.setValue("Queso Cilíndrico", Principal.getInstance().cantidadQuesos()[1]);
+        data.setValue("Queso C. Hueco", Principal.getInstance().cantidadQuesos()[2]);
+ 
+        // Creando el Grafico
+        JFreeChart chart = ChartFactory.createPieChart(
+         "", 
+         data, 
+         true, 
+         true, 
+         false);
+        PiePlot plot = (PiePlot) chart.getPlot();
+        plot.setBackgroundPaint(Color.WHITE);;
+        plot.setSectionPaint("Queso Esférico", new Color(11, 55, 99));
+        plot.setSectionPaint("Queso Cilíndrico", new Color(19,98,176));
+        plot.setSectionPaint("Queso C. Hueco", new Color(28,140,252));
+ 
+        // Crear el Panel del Grafico con ChartPanel
+        ChartPanel chartPanel = new ChartPanel(chart);
+        panel_1.add(chartPanel);
+		/*JLabel lblNewLabel_1 = new JLabel("Queso Esf\u00E9rico:");
 		panel_1.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("Queso Cil\u00EDndrico:");
-		lblNewLabel_2.setBounds(10, 56, 100, 14);
 		panel_1.add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_3 = new JLabel("Queso C. Hueco:");
-		lblNewLabel_3.setBounds(10, 91, 100, 14);
 		panel_1.add(lblNewLabel_3);
 		
 		txtCantidadE = new JTextField();
 		txtCantidadE.setText(String.valueOf(Principal.getInstance().cantidadQuesos()[0]));
 		txtCantidadE.setEnabled(false);
-		txtCantidadE.setBounds(174, 18, 135, 20);
 		panel_1.add(txtCantidadE);
 		txtCantidadE.setColumns(10);
 		
 		txtCantidadC = new JTextField();
 		txtCantidadC.setText(String.valueOf(Principal.getInstance().cantidadQuesos()[1]));
 		txtCantidadC.setEnabled(false);
-		txtCantidadC.setBounds(174, 53, 135, 20);
 		panel_1.add(txtCantidadC);
 		txtCantidadC.setColumns(10);
 		
 		txtCantidadH = new JTextField();
 		txtCantidadH.setText(String.valueOf(Principal.getInstance().cantidadQuesos()[2]));
 		txtCantidadH.setEnabled(false);
-		txtCantidadH.setBounds(174, 88, 135, 20);
 		panel_1.add(txtCantidadH);
-		txtCantidadH.setColumns(10);
+		txtCantidadH.setColumns(10);*/
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(51, 102, 153), new Color(51, 102, 153)), "Mayor Volumen en Factura", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_2.setBounds(190, 162, 319, 129);
+		panel_2.setBounds(22, 185, 319, 129);
 		contentPanel.add(panel_2);
 		panel_2.setLayout(null);
 		
