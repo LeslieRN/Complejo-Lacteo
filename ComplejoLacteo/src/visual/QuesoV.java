@@ -25,6 +25,7 @@ import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.ImageIcon;
 
 public class QuesoV extends JDialog {
 
@@ -67,7 +68,7 @@ public class QuesoV extends JDialog {
 	 */
 	public QuesoV() {
 		setTitle("Menu Quesos");
-		setBounds(100, 100, 425, 379);
+		setBounds(100, 100, 425, 385);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -75,13 +76,14 @@ public class QuesoV extends JDialog {
 		contentPanel.setLayout(null);
 		{
 			JPanel panel = new JPanel();
-			panel.setBounds(5, 5, 394, 297);
+			panel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(51, 102, 153), new Color(51, 102, 153)), "Nuevo Queso", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+			panel.setBounds(5, 5, 394, 309);
 			contentPanel.add(panel);
 			panel.setLayout(null);
 			
 			JPanel panel_1 = new JPanel();
-			panel_1.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Informaci\u00F3n General", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-			panel_1.setBounds(10, 11, 374, 83);
+			panel_1.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(51, 102, 153), new Color(51, 102, 153)), "Informacion General", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+			panel_1.setBounds(10, 23, 374, 83);
 			panel.add(panel_1);
 			panel_1.setLayout(null);
 			{
@@ -107,17 +109,17 @@ public class QuesoV extends JDialog {
 			
 			spnPrecioBase = new JSpinner();
 			spnPrecioBase.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
-			spnPrecioBase.setBounds(93, 51, 72, 23);
+			spnPrecioBase.setBounds(78, 51, 72, 23);
 			panel_1.add(spnPrecioBase);
 			
 			spnPrecioUnitario = new JSpinner();
 			spnPrecioUnitario.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
-			spnPrecioUnitario.setBounds(292, 51, 72, 23);
+			spnPrecioUnitario.setBounds(267, 51, 72, 23);
 			panel_1.add(spnPrecioUnitario);
 			{
 				JPanel panel_2 = new JPanel();
-				panel_2.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Tipo de Queso", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-				panel_2.setBounds(10, 94, 374, 89);
+				panel_2.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(51, 102, 153), new Color(51, 102, 153)), "Tipo de Queso", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+				panel_2.setBounds(10, 106, 374, 89);
 				panel.add(panel_2);
 				panel_2.setLayout(null);
 				
@@ -163,8 +165,8 @@ public class QuesoV extends JDialog {
 			}
 			{
 				panelEsferico = new JPanel();
-				panelEsferico.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Queso Esf\u00E9rico", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-				panelEsferico.setBounds(10, 182, 374, 104);
+				panelEsferico.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(51, 102, 153), new Color(51, 102, 153)), "Queso Esferico", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+				panelEsferico.setBounds(10, 195, 374, 104);
 				panel.add(panelEsferico);
 				panelEsferico.setLayout(null);
 				
@@ -180,11 +182,10 @@ public class QuesoV extends JDialog {
 			
 			panelCilindrico = new JPanel();
 			panelCilindrico.setVisible(false);
-			panelCilindrico.setBounds(10, 182, 374, 104);
+			panelCilindrico.setBounds(10, 195, 374, 104);
 			panel.add(panelCilindrico);
-			panelCilindrico.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Queso Cilindrico", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+			panelCilindrico.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(51, 102, 153), new Color(51, 102, 153)), "Queso Cilindrico", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 			panelCilindrico.setLayout(null);
-			
 			JLabel lblNewLabel_5 = new JLabel("Radio:");
 			lblNewLabel_5.setBounds(19, 44, 46, 14);
 			panelCilindrico.add(lblNewLabel_5);
@@ -205,8 +206,8 @@ public class QuesoV extends JDialog {
 			
 			panelCilindroH = new JPanel();
 			panelCilindroH.setVisible(false);
-			panelCilindroH.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Queso Cinl\u00EDndrico Hueco", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-			panelCilindroH.setBounds(10, 182, 374, 104);
+			panelCilindroH.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(51, 102, 153), new Color(51, 102, 153)), "Queso Cilindrico Hueco", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+			panelCilindroH.setBounds(10, 195, 374, 104);
 			panel.add(panelCilindroH);
 			panelCilindroH.setLayout(null);
 			
@@ -240,9 +241,11 @@ public class QuesoV extends JDialog {
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			buttonPane.setBackground(new Color(51, 102, 153));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				btnRegistrar = new JButton("Registrar");
+				btnRegistrar = new JButton("");
+				btnRegistrar.setIcon(new ImageIcon(QuesoV.class.getResource("/icons/diskette (1).png")));
 				btnRegistrar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						Queso aux = null;
@@ -274,7 +277,8 @@ public class QuesoV extends JDialog {
 				getRootPane().setDefaultButton(btnRegistrar);
 			}
 			{
-				btnCancelar = new JButton("Cancelar");
+				btnCancelar = new JButton("");
+				btnCancelar.setIcon(new ImageIcon(QuesoV.class.getResource("/icons/home (2).png")));
 				btnCancelar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						dispose();
