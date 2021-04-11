@@ -1,8 +1,10 @@
 package logico;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Principal {
+public class Principal implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private ArrayList<Factura> facturas;
 	private ArrayList<Cliente> clientes;
 	private ArrayList<Queso> quesos;
@@ -19,6 +21,13 @@ public class Principal {
 			principal = new Principal();
 		}
 		return principal;
+	}
+	
+	public static Principal getPrincipal() {
+		return principal;
+	}
+	public static void setPrincipal(Principal principal) {
+		Principal.principal = principal;
 	}
 	public ArrayList<Factura> getFacturas() {
 		return facturas;
@@ -194,15 +203,6 @@ public class Principal {
 				}
 			}
 		}
-		//float mayor = 0;
-		//String nombre = "";
-		/*float precio = 0;
-		for(Factura x : this.facturas) {
-			if(x.getQueso().volumen() > mayor) {
-				mayor = x.getQueso().volumen();
-				nombre = x.getCodigo();
-			}
-		}*/
 		return precio;
 	}
 
