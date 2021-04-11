@@ -1,6 +1,7 @@
 package visual;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
@@ -16,6 +17,8 @@ import javax.swing.JTable;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
 
 public class MostrarCliente extends JDialog {
 
@@ -44,13 +47,16 @@ public class MostrarCliente extends JDialog {
 	 * Create the dialog.
 	 */
 	public MostrarCliente() {
-		setBounds(100, 100, 534, 378);
+		setBounds(100, 100, 553, 397);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new BorderLayout(0, 0));
 		{
+		//	panel.setBorder(new TitledBorder(null, "Mostrar Clientes", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+			panel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(51, 102, 153), new Color(51, 102, 153)), "Mostrar Clientes", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+			
 			contentPanel.add(panel, BorderLayout.CENTER);
 		}
 		panel.setLayout(new BorderLayout(0, 0));
@@ -67,6 +73,7 @@ public class MostrarCliente extends JDialog {
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			buttonPane.setBackground(new Color(51, 102, 153));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				btnCancelar = new JButton("");
