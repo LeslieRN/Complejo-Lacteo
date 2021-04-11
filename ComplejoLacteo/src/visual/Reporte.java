@@ -19,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
 
 public class Reporte extends JDialog {
 
@@ -59,7 +60,7 @@ public class Reporte extends JDialog {
 		contentPanel.setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Ventas Totales", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(51, 102, 153), new Color(51, 102, 153)), "Ventas Totales", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel.setBounds(22, 14, 319, 129);
 		contentPanel.add(panel);
 		panel.setLayout(null);
@@ -80,14 +81,14 @@ public class Reporte extends JDialog {
 		panel.add(lblNewLabel_4);
 		
 		txtTotalVentas = new JTextField();
-		txtTotalVentas.setText(String.valueOf(Principal.getInstance().calcularTotalVentas()));
+		txtTotalVentas.setText(String.valueOf(Principal.getInstance().calcularTotalVentas())+"$RD");
 		txtTotalVentas.setEnabled(false);
 		txtTotalVentas.setBounds(137, 78, 163, 20);
 		panel.add(txtTotalVentas);
 		txtTotalVentas.setColumns(10);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Quesos Vendidos por Categoria", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_1.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(51, 102, 153), new Color(51, 102, 153)), "Informacion General", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel_1.setBounds(363, 11, 319, 129);
 		contentPanel.add(panel_1);
 		panel_1.setLayout(null);
@@ -126,7 +127,7 @@ public class Reporte extends JDialog {
 		txtCantidadH.setColumns(10);
 		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Mayor Volumen en Factura", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel_2.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(51, 102, 153), new Color(51, 102, 153)), "Mayor Volumen en Factura", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel_2.setBounds(190, 162, 319, 129);
 		contentPanel.add(panel_2);
 		panel_2.setLayout(null);
@@ -136,7 +137,8 @@ public class Reporte extends JDialog {
 		panel_2.add(txtCodigoFactura);
 		txtCodigoFactura.setColumns(10);
 		
-		btnBuscar = new JButton("Buscar");
+		btnBuscar = new JButton("");
+		btnBuscar.setIcon(new ImageIcon(Reporte.class.getResource("/icons/loupe (2).png")));
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -144,7 +146,7 @@ public class Reporte extends JDialog {
 				
 			}
 		});
-		btnBuscar.setBounds(182, 20, 89, 23);
+		btnBuscar.setBounds(179, 11, 89, 41);
 		panel_2.add(btnBuscar);
 		
 		JPanel panel_3 = new JPanel();
@@ -160,9 +162,11 @@ public class Reporte extends JDialog {
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			buttonPane.setBackground(new Color(51, 102, 153));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				btnCancelar = new JButton("Cancelar");
+				btnCancelar = new JButton("");
+				btnCancelar.setIcon(new ImageIcon(Reporte.class.getResource("/icons/home (2).png")));
 				btnCancelar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						dispose();
