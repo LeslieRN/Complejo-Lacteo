@@ -248,28 +248,63 @@ public class QuesoV extends JDialog {
 				btnRegistrar.setBorderPainted(false);
 				btnRegistrar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						
+						
+						
 						Queso aux = null;
 						String codigo = txtCodigo.getText();
 						float precioU = Float.parseFloat(spnPrecioUnitario.getValue().toString());
 						float precioB = Float.parseFloat(spnPrecioBase.getValue().toString());
 						
 						if(rdbEsfera.isSelected()) {
+							
+							if(!txtRadioE.getText().isEmpty()) {
+								
 							float radio = Float.parseFloat(txtRadioE.getText());
 							aux = new Esfera(precioB, precioU, codigo, radio);
-						} else if (rdbCilindro.isSelected()) {
+							JOptionPane.showMessageDialog(null,"Queso registrado","Informacion", JOptionPane.INFORMATION_MESSAGE);
+							
+							}else {
+								
+								JOptionPane.showMessageDialog(null,"Debe llenar todos los campos","Aviso", JOptionPane.INFORMATION_MESSAGE);
+							}
+		
+						}
+						if (rdbCilindro.isSelected()) {
+							
+							if(!txtRadioC.getText().isEmpty() && !txtLongitudC.getText().isEmpty()) {
+								
 							float radio = Float.parseFloat(txtRadioC.getText());
 							float longitud = Float.parseFloat(txtLongitudC.getText());
 							aux = new Cilindro(precioB, precioU, codigo, radio, longitud);
-						} else {
+							JOptionPane.showMessageDialog(null,"Queso registrado","Informacion", JOptionPane.INFORMATION_MESSAGE);
+							
+							}else {
+								
+								JOptionPane.showMessageDialog(null,"Debe llenar todos los campos","Aviso", JOptionPane.INFORMATION_MESSAGE);
+								
+							}
+						} 
+						if(rdbCilindroH.isSelected()){
+							
+							if(!txtCilindroH.getText().isEmpty() && !txtLongitudH.getText().isEmpty() && !txtRadioI.getText().isEmpty()) {
+								
 							float radio = Float.parseFloat(txtCilindroH.getText());
 							float longitud = Float.parseFloat(txtLongitudH.getText());
 							float radioI = Float.parseFloat(txtRadioI.getText());
 							aux = new CilindroHueco(precioB, precioU,codigo,radio, longitud, radioI);
+							JOptionPane.showMessageDialog(null,"Queso registrado","Informacion", JOptionPane.INFORMATION_MESSAGE);
+							
+							}else {
+								
+								JOptionPane.showMessageDialog(null,"Debe llenar todos los campos","Aviso", JOptionPane.INFORMATION_MESSAGE);
+							}
 						}
 						
 						Principal.getInstance().insertarQueso(aux);
-						JOptionPane.showMessageDialog(null,"Queso registrardo","Mensaje", JOptionPane.INFORMATION_MESSAGE);
 						clean();
+						
+					
 					}
 				});
 				btnRegistrar.setActionCommand("OK");
