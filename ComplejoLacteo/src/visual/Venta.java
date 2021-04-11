@@ -47,6 +47,8 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.UIManager;
 import java.awt.Color;
 import java.awt.Event;
+import javax.swing.ImageIcon;
+import java.awt.Font;
 
 public class Venta extends JDialog {
 
@@ -97,7 +99,7 @@ public class Venta extends JDialog {
 			panel.setLayout(null);
 
 			JPanel panel_1 = new JPanel();
-			panel_1.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Datos Cliente", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+			panel_1.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(51, 102, 153), new Color(51, 102, 153)), "Datos Cliente", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 			panel_1.setBounds(10, 11, 566, 147);
 			panel.add(panel_1);
 			panel_1.setLayout(null);
@@ -137,11 +139,12 @@ public class Venta extends JDialog {
 
 			txtTel = new JTextField();
 			txtTel.setEnabled(false);
-			txtTel.setBounds(98, 94, 147, 23);
+			txtTel.setBounds(122, 97, 147, 23);
 			panel_1.add(txtTel);
 			txtTel.setColumns(10);
 
-			btnBuscar = new JButton("Buscar");
+			btnBuscar = new JButton("");
+			btnBuscar.setIcon(new ImageIcon(Venta.class.getResource("/icons/loupe (2).png")));
 			btnBuscar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					String codigo = txtCodigoCliente.getText();
@@ -160,7 +163,7 @@ public class Venta extends JDialog {
 					}
 				}
 			});
-			btnBuscar.setBounds(383, 21, 89, 23);
+			btnBuscar.setBounds(383, 18, 89, 33);
 			panel_1.add(btnBuscar);
 
 			JPanel panel_2 = new JPanel();
@@ -206,23 +209,6 @@ public class Venta extends JDialog {
 			listaFactura.setModel(model_Factura);
 			scrollPane_1.setViewportView(listaFactura);
 
-			JPanel panel_4 = new JPanel();
-			panel_4.setBounds(10, 446, 566, 52);
-			panel.add(panel_4);
-			panel_4.setLayout(null);
-
-			JLabel lblNewLabel = new JLabel("Total:");
-			lblNewLabel.setBounds(145, 11, 70, 17);
-			panel_4.add(lblNewLabel);
-
-			txtSubtotal = new JTextField();
-			txtSubtotal.setForeground(Color.RED);
-			txtSubtotal.setText("0");
-			txtSubtotal.setEnabled(false);
-			txtSubtotal.setBounds(302, 8, 136, 23);
-			panel_4.add(txtSubtotal);
-			txtSubtotal.setColumns(10);
-
 			cmbTipoQuesos = new JComboBox<Object>();
 			cmbTipoQuesos.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
@@ -234,7 +220,8 @@ public class Venta extends JDialog {
 			cmbTipoQuesos.setBounds(54, 169, 155, 20);
 			panel.add(cmbTipoQuesos);
 
-			btnRegresar = new JButton("<");
+			btnRegresar = new JButton("");
+			btnRegresar.setIcon(new ImageIcon(Venta.class.getResource("/icons/previous.png")));
 			btnRegresar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					Queso aux = null;
@@ -259,10 +246,11 @@ public class Venta extends JDialog {
 				}
 			});
 			btnRegresar.setEnabled(false);
-			btnRegresar.setBounds(259, 312, 68, 23);
+			btnRegresar.setBounds(259, 312, 68, 33);
 			panel.add(btnRegresar);
 
-			btnInsertar = new JButton(">");
+			btnInsertar = new JButton("");
+			btnInsertar.setIcon(new ImageIcon(Venta.class.getResource("/icons/right-arrow (1).png")));
 			btnInsertar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					Queso aux = null;
@@ -286,7 +274,7 @@ public class Venta extends JDialog {
 				}
 			});
 			btnInsertar.setEnabled(false);
-			btnInsertar.setBounds(259, 278, 68, 23);
+			btnInsertar.setBounds(259, 268, 68, 33);
 			panel.add(btnInsertar);
 
 			txtCodigoFactura = new JTextField();
@@ -295,13 +283,28 @@ public class Venta extends JDialog {
 			txtCodigoFactura.setBounds(337, 169, 239, 23);
 			panel.add(txtCodigoFactura);
 			txtCodigoFactura.setColumns(10);
+			
+						txtSubtotal = new JTextField();
+						txtSubtotal.setFont(new Font("Tahoma", Font.PLAIN, 14));
+						txtSubtotal.setBounds(429, 454, 136, 38);
+						panel.add(txtSubtotal);
+						txtSubtotal.setForeground(Color.RED);
+						txtSubtotal.setText("0.00"+"$RD");
+						txtSubtotal.setEnabled(false);
+						txtSubtotal.setColumns(10);
+						
+						JLabel lblNewLabel = new JLabel("Total:");
+						lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+						lblNewLabel.setBounds(374, 465, 60, 14);
+						panel.add(lblNewLabel);
 		}
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				btnRegistrarVenta = new JButton("Registrar Venta");
+				btnRegistrarVenta = new JButton("");
+				btnRegistrarVenta.setIcon(new ImageIcon(Venta.class.getResource("/icons/diskette (1).png")));
 				btnRegistrarVenta.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						Factura auxFact = null;
@@ -336,7 +339,8 @@ public class Venta extends JDialog {
 				getRootPane().setDefaultButton(btnRegistrarVenta);
 			}
 			{
-				btnCancelar = new JButton("Cancelar");
+				btnCancelar = new JButton("");
+				btnCancelar.setIcon(new ImageIcon(Venta.class.getResource("/icons/home (2).png")));
 				btnCancelar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();
