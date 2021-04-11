@@ -98,6 +98,16 @@ public class PrincipalV extends JFrame {
 		});
 		mnNewMenu_2.add(mntmNewMenuItem_2);
 		
+		JMenuItem mntmNewMenuItem_5 = new JMenuItem("Listado de Ventas");
+		mntmNewMenuItem_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				MostrarVentas mVenta = new MostrarVentas();
+				mVenta.setModal(true);
+				mVenta.setVisible(true);
+			}
+		});
+		mnNewMenu_2.add(mntmNewMenuItem_5);
+		
 		JMenu mnNewMenu_3 = new JMenu("Reportes");
 		menuBar.add(mnNewMenu_3);
 		
