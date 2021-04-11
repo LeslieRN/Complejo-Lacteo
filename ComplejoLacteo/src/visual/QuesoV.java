@@ -62,13 +62,12 @@ public class QuesoV extends JDialog {
 			e.printStackTrace();
 		}
 	}*/
-
 	/**
 	 * Create the dialog.
 	 */
 	public QuesoV() {
 		setTitle("Menu Quesos");
-		setBounds(100, 100, 425, 385);
+		setBounds(100, 100, 425, 402);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -109,12 +108,12 @@ public class QuesoV extends JDialog {
 			
 			spnPrecioBase = new JSpinner();
 			spnPrecioBase.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
-			spnPrecioBase.setBounds(78, 51, 72, 23);
+			spnPrecioBase.setBounds(88, 51, 72, 23);
 			panel_1.add(spnPrecioBase);
 			
 			spnPrecioUnitario = new JSpinner();
 			spnPrecioUnitario.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
-			spnPrecioUnitario.setBounds(267, 51, 72, 23);
+			spnPrecioUnitario.setBounds(281, 51, 72, 23);
 			panel_1.add(spnPrecioUnitario);
 			{
 				JPanel panel_2 = new JPanel();
@@ -246,6 +245,7 @@ public class QuesoV extends JDialog {
 			{
 				btnRegistrar = new JButton("");
 				btnRegistrar.setIcon(new ImageIcon(QuesoV.class.getResource("/icons/diskette (1).png")));
+				btnRegistrar.setBorderPainted(false);
 				btnRegistrar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						Queso aux = null;
@@ -278,6 +278,7 @@ public class QuesoV extends JDialog {
 			}
 			{
 				btnCancelar = new JButton("");
+				btnCancelar.setBorderPainted(false);
 				btnCancelar.setIcon(new ImageIcon(QuesoV.class.getResource("/icons/home (2).png")));
 				btnCancelar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
@@ -292,7 +293,7 @@ public class QuesoV extends JDialog {
 	private void clean () {
 		txtCodigo.setText("Q-"+Queso.getCantidadQuesos());
 		txtRadioE.setText("");
-		spnPrecioBase.setValue(0);
+		spnPrecioBase.setValue(1);
 		rdbEsfera.setSelected(true);
 		panelEsferico.setVisible(true);
 		panelCilindroH.setVisible(false);
@@ -302,7 +303,7 @@ public class QuesoV extends JDialog {
 		txtRadioC.setText("");
 		txtLongitudC.setText("");
 		txtCilindroH.setText("");
-		spnPrecioUnitario.setValue(0);
+		spnPrecioUnitario.setValue(1);
 		txtRadioI.setText("");
 		txtLongitudH.setText("");
 	}
