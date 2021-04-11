@@ -80,7 +80,7 @@ public class Venta extends JDialog {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}*/
+	}*
 
 	/**
 	 * Create the dialog.
@@ -286,17 +286,22 @@ public class Venta extends JDialog {
 			
 						txtSubtotal = new JTextField();
 						txtSubtotal.setFont(new Font("Tahoma", Font.PLAIN, 14));
-						txtSubtotal.setBounds(429, 454, 136, 38);
+						txtSubtotal.setBounds(392, 450, 136, 38);
 						panel.add(txtSubtotal);
 						txtSubtotal.setForeground(Color.RED);
-						txtSubtotal.setText("0.00"+"$RD");
+						txtSubtotal.setText("0.00");
 						txtSubtotal.setEnabled(false);
 						txtSubtotal.setColumns(10);
 						
 						JLabel lblNewLabel = new JLabel("Total:");
 						lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-						lblNewLabel.setBounds(374, 465, 60, 14);
+						lblNewLabel.setBounds(337, 461, 60, 14);
 						panel.add(lblNewLabel);
+						
+						JLabel lblNewLabel_5 = new JLabel("$RD");
+						lblNewLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 14));
+						lblNewLabel_5.setBounds(530, 455, 46, 27);
+						panel.add(lblNewLabel_5);
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -317,12 +322,9 @@ public class Venta extends JDialog {
 						}
 
 						auxFact = new Factura(txtCodigoFactura.getText(), auxCliente, Float.valueOf(txtSubtotal.getText()));
-						//ArrayList<Queso> auxQueso = new ArrayList<Queso>();
 
 						auxFact.setQueso(quesosFactura());
 						Principal.getInstance().insertarFactura(auxFact);
-						//Principal.setNombreFactura(txtCodigoFactura.getText());
-						//System.out.println("Este es el nombre de la factura " +Principal.getNombreFactura());
 						JOptionPane.showMessageDialog(null,"Factura registrada","Mensaje", JOptionPane.INFORMATION_MESSAGE);
 						if(guardarFactura(txtCodigoFactura.getText(), auxFact)) {
 							JOptionPane.showMessageDialog(null,"Factura guardada","Mensaje", JOptionPane.INFORMATION_MESSAGE);
@@ -385,8 +387,11 @@ public class Venta extends JDialog {
 	private void clean() {
 		txtCodigoCliente.setText("");
 		txtNombre.setText("");
+		txtNombre.setEnabled(false);
 		txtDirec.setText("");
+		txtDirec.setEnabled(false);
 		txtTel.setText("");
+		txtTel.setEnabled(false);
 		txtSubtotal.setText("0.00");
 		txtCodigoFactura.setText("FACT-"+Factura.getCantidad());
 		model_Factura.removeAllElements();
