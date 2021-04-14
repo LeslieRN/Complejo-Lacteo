@@ -8,39 +8,32 @@ import java.util.*;
 public class Flujo extends Thread
 {
 	Socket nsfd;
-	DataInputStream FlujoLectura;
-	DataOutputStream FlujoEscritura;
 	InputStream in = null;
 	OutputStream out = null;
 	SimpleDateFormat formatDate= new SimpleDateFormat("dd-M-yyyy-hh-mm-ss");
-	String date;// = formatDate.format(new Date());
+	String date;
 	public Flujo (Socket sfd)
 	{
 		nsfd = sfd;
-		try
-		{
-			FlujoLectura = new DataInputStream(new BufferedInputStream(sfd.getInputStream()));
-			FlujoEscritura = new DataOutputStream(new BufferedOutputStream(sfd.getOutputStream()));
-		}
-		catch(IOException ioe)
-		{
-			System.out.println("IOException(Flujo): "+ioe);
-		}
 	}
 
 	public void run()
 	{
 		String path = System.getProperty("user.dir");
+		
 		try {
 			in = nsfd.getInputStream();
 		} catch (IOException ex) {
-			System.out.println("Can't get socket input stream. ");
+			System.out.println("Error al obtener el socket ");
 		}
 		try {
 			date = formatDate.format(new Date());
 			out = new FileOutputStream(path+"\\Respaldo\\factura."+date+".dat");
 		} catch (FileNotFoundException ex) {
 			System.out.println("File not found. ");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 		byte[] bytes = new byte[16*1024];

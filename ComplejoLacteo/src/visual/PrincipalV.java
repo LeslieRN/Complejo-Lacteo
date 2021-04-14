@@ -25,13 +25,26 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
+import javax.swing.border.TitledBorder;
+import javax.swing.border.EtchedBorder;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 
-public class PrincipalV extends JFrame {
+public class PrincipalV extends JFrame{
 
 	private JPanel contentPane;
 	private Dimension dimension;
 	private JMenuItem mntmNewMenuItem_1;
-
+	public static JTextField txtCantidadTotal;
+	public static JTextField txtTotalVentas;
+	private JTextField txtCodigoFactura;
+	private JPanel panel_3;
+	private GraficoPie pie;
+	private Thread t1;
+	private JLabel lblVolumenFact;
 	/**
 	 * Launch the application.
 	 */
@@ -87,7 +100,7 @@ public class PrincipalV extends JFrame {
 	 * Create the frame.
 	 */
 	public PrincipalV() {
-		
+		GraficoPie pie = new GraficoPie(true); 
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -107,6 +120,8 @@ public class PrincipalV extends JFrame {
 				
 			}
 		});
+		pie.setBounds(10, 22, 608, 392);
+		t1 = new Thread(pie);
 		setTitle("Complejo Lacteo");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1045, 723);
@@ -115,9 +130,11 @@ public class PrincipalV extends JFrame {
 		setLocationRelativeTo(null);
 		
 		JMenuBar menuBar = new JMenuBar();
+		menuBar.setBackground(new Color(51, 102, 153));
 		setJMenuBar(menuBar);
 		
 		JMenu mnNewMenu = new JMenu("Listado de Cliente");
+		mnNewMenu.setForeground(new Color(255, 255, 255));
 		menuBar.add(mnNewMenu);
 		
 		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Mostrar Cliente");
@@ -131,6 +148,7 @@ public class PrincipalV extends JFrame {
 		mnNewMenu.add(mntmNewMenuItem_3);
 		
 		JMenu mnNewMenu_1 = new JMenu("Produccion");
+		mnNewMenu_1.setForeground(new Color(255, 255, 255));
 		menuBar.add(mnNewMenu_1);
 		
 		JMenuItem mntmNewMenuItem = new JMenuItem("Fabricacion Quesos");
@@ -154,6 +172,7 @@ public class PrincipalV extends JFrame {
 		mnNewMenu_1.add(mntmNewMenuItem_4);
 		
 		JMenu mnNewMenu_2 = new JMenu("Ventas");
+		mnNewMenu_2.setForeground(new Color(255, 255, 255));
 		menuBar.add(mnNewMenu_2);
 		
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Facturar");
@@ -176,18 +195,6 @@ public class PrincipalV extends JFrame {
 		});
 		mnNewMenu_2.add(mntmNewMenuItem_5);
 		
-		JMenu mnNewMenu_3 = new JMenu("Reportes");
-		menuBar.add(mnNewMenu_3);
-		
-		mntmNewMenuItem_1 = new JMenuItem("Reportes");
-		mntmNewMenuItem_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Reporte auxReport = new Reporte();
-				auxReport.setModal(true);
-				auxReport.setVisible(true);
-			}
-		});
-		mnNewMenu_3.add(mntmNewMenuItem_1);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -196,6 +203,80 @@ public class PrincipalV extends JFrame {
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.CENTER);
 		panel.setLayout(new BorderLayout(0, 0));
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setLayout(null);
+		panel_1.setBorder(new EmptyBorder(5, 5, 5, 5));
+		panel.add(panel_1, BorderLayout.CENTER);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setLayout(null);
+		panel_2.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(51, 102, 153), new Color(51, 102, 153)), "Ventas Totales", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_2.setBounds(131, 151, 319, 129);
+		panel_1.add(panel_2);
+		
+		JLabel label = new JLabel("Cantidad Vendida:");
+		label.setBounds(19, 33, 120, 14);
+		panel_2.add(label);
+		
+		txtCantidadTotal = new JTextField();
+		txtCantidadTotal.setText(String.valueOf((Principal.getInstance().calcularCantidadTotalVentas())));
+		txtCantidadTotal.setEnabled(false);
+		txtCantidadTotal.setColumns(10);
+		txtCantidadTotal.setBounds(137, 29, 163, 20);
+		panel_2.add(txtCantidadTotal);
+		
+		JLabel label_1 = new JLabel("Total Vendido:");
+		label_1.setBounds(19, 80, 120, 14);
+		panel_2.add(label_1);
+		
+		txtTotalVentas = new JTextField();
+		txtTotalVentas.setText(String.valueOf(Principal.getInstance().calcularTotalVentas())+"$RD");
+		txtTotalVentas.setEnabled(false);
+		txtTotalVentas.setColumns(10);
+		txtTotalVentas.setBounds(137, 78, 163, 20);
+		panel_2.add(txtTotalVentas);
+		
+		panel_3 = new JPanel();
+		panel_3.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(51, 102, 153), new Color(51, 102, 153)), "Informacion General", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_3.setBounds(581, 114, 628, 425);
+		panel_3.setLayout(null);
+		panel_3.add(pie);
+		t1.start();
+		panel_1.add(panel_3);
+		
+		JPanel panel_4 = new JPanel();
+		panel_4.setLayout(null);
+		panel_4.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(51, 102, 153), new Color(51, 102, 153)), "Mayor Volumen en Factura", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_4.setBounds(131, 349, 319, 129);
+		panel_1.add(panel_4);
+		
+		txtCodigoFactura = new JTextField();
+		txtCodigoFactura.setColumns(10);
+		txtCodigoFactura.setBounds(48, 21, 86, 20);
+		panel_4.add(txtCodigoFactura);
+		
+		JButton btnBuscar = new JButton("");
+		btnBuscar.setIcon(new ImageIcon(PrincipalV.class.getResource("/icons/loupe (2).png")));
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				lblVolumenFact.setText(String.valueOf(Principal.getInstance().mayorVolumen(txtCodigoFactura.getText())));
+				
+			}
+		});
+		btnBuscar.setBounds(179, 11, 89, 41);
+		panel_4.add(btnBuscar);
+		
+		JPanel panel_5 = new JPanel();
+		panel_5.setLayout(null);
+		panel_5.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		panel_5.setBounds(10, 62, 299, 56);
+		panel_4.add(panel_5);
+		
+		lblVolumenFact = new JLabel("");
+		lblVolumenFact.setBounds(10, 11, 289, 23);
+		panel_5.add(lblVolumenFact);
 	}
 
 }

@@ -317,7 +317,7 @@ public class Venta extends JDialog {
 						Cliente auxCliente = null;
 						String codigo = txtCodigoCliente.getText();
 						auxCliente = Principal.getInstance().buscarCliente(codigo);
-						
+
 						try {
 							if(auxCliente == null) {
 								auxCliente = new Cliente(txtCodigoCliente.getText(), txtNombre.getText(), txtDirec.getText(), txtTel.getText());
@@ -326,7 +326,7 @@ public class Venta extends JDialog {
 						} catch (Exception e1) {
 							JOptionPane.showMessageDialog(null,"Ocurrio un Error al insertar Cliente","Mensaje", JOptionPane.ERROR_MESSAGE);
 						}
-						
+
 						try {
 							auxFact = new Factura(txtCodigoFactura.getText(), auxCliente, Float.valueOf(txtSubtotal.getText()));
 							auxFact.setQueso(quesosFactura());
@@ -335,7 +335,7 @@ public class Venta extends JDialog {
 						} catch (Exception e2) {
 							JOptionPane.showMessageDialog(null,"Ocurrio un Error al insertar Factura","Mensaje", JOptionPane.ERROR_MESSAGE);
 						}
-						
+
 						if(guardarFactura(txtCodigoFactura.getText(), auxFact)) {
 							JOptionPane.showMessageDialog(null,"Factura guardada","Mensaje", JOptionPane.INFORMATION_MESSAGE);
 							try {
@@ -439,7 +439,6 @@ public class Venta extends JDialog {
 		byte[] bytes = new byte[16 * 1024];
 		FileInputStream in;
 		String path = System.getProperty("user.dir");
-
 		try {
 			socket = new Socket(host, 7000);
 			in = new FileInputStream(path+"\\facturas\\"+nombreFact+".dat");
@@ -448,7 +447,6 @@ public class Venta extends JDialog {
 			while ((count = in.read(bytes)) > 0) {
 				out.write(bytes, 0, count);
 			}
-
 			out.close();
 			in.close();
 			socket.close();
@@ -463,5 +461,8 @@ public class Venta extends JDialog {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		
+		PrincipalV.txtCantidadTotal.setText(String.valueOf((Principal.getInstance().calcularCantidadTotalVentas())));
+		PrincipalV.txtTotalVentas.setText(String.valueOf(Principal.getInstance().calcularTotalVentas())+"$RD");
 	}
 }
