@@ -125,12 +125,12 @@ public class Venta extends JDialog {
 			txtNombre.setColumns(10);
 
 			JLabel lblNewLabel_3 = new JLabel("Direcci\u00F3n:");
-			lblNewLabel_3.setBounds(292, 98, 89, 14);
+			lblNewLabel_3.setBounds(313, 98, 89, 14);
 			panel_1.add(lblNewLabel_3);
 
 			txtDirec = new JTextField();
 			txtDirec.setEnabled(false);
-			txtDirec.setBounds(409, 94, 147, 23);
+			txtDirec.setBounds(383, 94, 147, 23);
 			panel_1.add(txtDirec);
 			txtDirec.setColumns(10);
 
@@ -313,6 +313,9 @@ public class Venta extends JDialog {
 				btnRegistrarVenta.setIcon(new ImageIcon(Venta.class.getResource("/icons/diskette (1).png")));
 				btnRegistrarVenta.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						
+						if(!txtCodigoCliente.getText().isEmpty() && !txtNombre.getText().isEmpty() && !txtDirec.getText().isEmpty() && !txtTel.getText().isEmpty()) {
+						
 						Factura auxFact = null;
 						Cliente auxCliente = null;
 						String codigo = txtCodigoCliente.getText();
@@ -348,6 +351,11 @@ public class Venta extends JDialog {
 							}
 						}
 						clean();
+					}else {
+						
+						JOptionPane.showMessageDialog(null,"Debe llenar todos los campos","Aviso", JOptionPane.ERROR_MESSAGE);
+						
+					}
 					}
 				});
 				btnRegistrarVenta.setActionCommand("OK");
